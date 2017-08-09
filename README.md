@@ -1,6 +1,6 @@
 # react-data-fetching
 
-Showcase on how to perfrom data fetching in React Read more about it in this article: [How to fetch data in React?](https://www.robinwieruch.de/react-data-fetching)
+Showcase on how to perform data fetching in React. Read more about it in this article: [How to fetch data in React?](https://www.robinwieruch.de/react-data-fetching)
 
 ## Installation
 
