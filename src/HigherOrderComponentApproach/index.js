@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import axios from 'axios';
 
 const API = 'https://hn.algolia.com/api/v1/search?query=';
 const DEFAULT_QUERY = 'redux';
 
-const withFetching = (url) => (Comp) =>
-  class WithFetching extends Component {
+const withFetching = (url) => (Component) =>
+  class WithFetching extends React.Component {
     constructor(props) {
       super(props);
 
       this.state = {
-        data: {},
+        data: null,
         isLoading: false,
         error: null,
       };
@@ -18,25 +19,26 @@ const withFetching = (url) => (Comp) =>
     componentDidMount() {
       this.setState({ isLoading: true });
 
-      fetch(url)
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error('Something went wrong ...');
-          }
-        })
-        .then(data => this.setState({ data, isLoading: false }))
-        .catch(error => this.setState({ error, isLoading: false }));
+      axios.get(url)
+        .then(result => this.setState({
+          data: result.data,
+          isLoading: false
+        }))
+        .catch(error => this.setState({
+          error,
+          isLoading: false
+        }));
     }
 
     render() {
-      return <Comp { ...this.props } { ...this.state } />
+      return <Component { ...this.props } { ...this.state } />;
     }
   }
 
 const HigherOrderComponentApproach = ({ data, isLoading, error }) => {
-  const hits = data.hits || [];
+  if (!data) {
+    return <p>No data yet ...</p>;
+  }
 
   if (error) {
     return <p>{error.message}</p>;
@@ -48,7 +50,7 @@ const HigherOrderComponentApproach = ({ data, isLoading, error }) => {
 
   return (
     <ul>
-      {hits.map(hit =>
+      {data.hits.map(hit =>
         <li key={hit.objectID}>
           <a href={hit.url}>{hit.title}</a>
         </li>
