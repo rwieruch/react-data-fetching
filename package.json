@@ -6,7 +6,7 @@
     "axios": "^0.18.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "2.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -17,6 +17,6 @@
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "sinon": "^6.1.2"
+    "sinon": "^7.0.0"
   }
 }
